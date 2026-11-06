@@ -34,6 +34,7 @@ export function ExplorationCard({ exploration, index, className = '' }: Props) {
         </span>
         <span className="text-[13px] tracking-[0.12em] text-ash uppercase">
           {exploration.tag} · {formatDate(exploration.date)}
+          {exploration.credit && <> · Photo @{exploration.credit}</>}
         </span>
       </div>
     </a>

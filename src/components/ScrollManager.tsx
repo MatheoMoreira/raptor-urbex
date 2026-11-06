@@ -7,15 +7,19 @@ import { useLocation } from 'react-router'
  */
 export function ScrollManager() {
   const { pathname, search, hash, key } = useLocation()
-  const previous = useRef({ pathname, search })
+  const previous = useRef<{ pathname: string; search: string } | null>(null)
 
   useEffect(() => {
-    const searchOnly = previous.current.pathname === pathname && previous.current.search !== search
+    const prev = previous.current
+    const samePage = prev !== null && prev.pathname === pathname
     previous.current = { pathname, search }
 
     if (hash) {
-      document.getElementById(decodeURIComponent(hash.slice(1)))?.scrollIntoView()
-    } else if (!searchOnly) {
+      // En arrivant sur une page, on saute directement : une animation peut être interrompue pendant le chargement.
+      document
+        .getElementById(decodeURIComponent(hash.slice(1)))
+        ?.scrollIntoView({ behavior: samePage ? 'smooth' : 'instant' })
+    } else if (!samePage || prev.search === search) {
       window.scrollTo({ top: 0, behavior: 'instant' })
     }
   }, [pathname, search, hash, key])

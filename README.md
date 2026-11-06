@@ -15,21 +15,29 @@ npm run preview  # sert le build de production
 ## Pages
 
 - `/` : accueil (`src/pages/HomePage.tsx`). Le filtre des explorations se lit dans l'URL :
-  `/?categorie=Militaire#explorations`.
+  `/?categorie=militaire#explorations` (`demeures`, `militaire`, `souterrain`, `insolites`).
 - `/a-propos` : présentation de l'explorateur (`src/pages/AboutPage.tsx`) — photo fixe à gauche,
   le code, les thèmes explorés, la FAQ et un appel au contact.
 
 Le routage passe par React Router. En production, l'hébergeur doit renvoyer `index.html` pour
 toutes les routes (règle de réécriture « SPA »), sinon `/a-propos` répondra 404 au rechargement.
 
+## Déploiement
+
+Chaque push sur `main` publie le site sur GitHub Pages via `.github/workflows/deploy.yml` :
+https://matheomoreira.github.io/raptor-urbex/ (version de relecture, `noindex` dans `index.html`).
+
 ## Où modifier quoi
 
-- `src/data/site.ts` : pseudo, ville, abonnés, pays et **adresse e-mail** (vide = emplacement réservé affiché).
-- `src/data/explorations.ts` : les explorations (titre, catégorie, date, photo, lien Instagram),
-  la sélection éditoriale de la grille (`curated`), le récit mis en avant et la photo du hero.
-- `src/assets/photos/` : les photos, importées par Vite (noms de fichiers hachés au build).
+- `src/data/site.ts` : pseudo, ville, abonnés, chiffres clés, pays, e-mail et liens Instagram / TikTok.
+- `src/data/explorations.ts` : les catégories, les explorations, la sélection éditoriale de la
+  grille (`curated`) et la photo du hero.
+- `src/data/story.ts` : le récit mis en avant (texte du post Instagram, photo, lieu).
+- `src/assets/photos/` : les photos, nommées comme le `slug` de leur exploration.
 - `src/index.css` : couleurs, polices et tailles de titres (`@theme`), dégradé du hero.
 - `src/components/` : une section de la page par fichier.
 
-Pour ajouter une exploration : déposer la photo dans `src/assets/photos/`, l'importer en haut de
-`explorations.ts` et ajouter une entrée au tableau `explorations` (le plus récent en premier).
+Pour ajouter une exploration : déposer la photo dans `src/assets/photos/<slug>.jpg`, puis ajouter
+une ligne au tableau `entries` de `explorations.ts` avec le `code` du post Instagram
+(`instagram.com/p/<code>/`). La date de publication et le lien sont calculés à partir de ce code,
+et la liste est triée automatiquement de la plus récente à la plus ancienne.
