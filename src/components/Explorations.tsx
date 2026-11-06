@@ -1,33 +1,41 @@
 import { useState } from 'react'
 import { useSearchParams } from 'react-router'
-import { categories, curated, explorations, getExploration, type Category } from '../data/explorations'
+import { categories, curated, explorations, getExploration, type CategoryId } from '../data/explorations'
 import { ExplorationCard } from './ExplorationCard'
 import { ArrowRightIcon } from './icons'
 import { buttonClass } from './ui'
 
-type Filter = 'Tout' | Category
+type Filter = 'tout' | CategoryId
 
-const filters: Filter[] = ['Tout', ...categories]
+const filters: { id: Filter; label: string; count: number }[] = [
+  { id: 'tout', label: 'Tout', count: explorations.length },
+  ...categories
+    .map((c) => ({ id: c.id, label: c.label, count: explorations.filter((e) => e.category === c.id).length }))
+    .filter((c) => c.count > 0),
+]
 
-const uniformLayout = 'lg:col-span-4 lg:[--media-h:520px]'
+const uniformLayout = 'lg:col-span-4 lg:[--media-h:480px]'
+const pageSize = 12
 
 export function Explorations() {
-  // Le filtre vit dans l'URL (?categorie=Militaire) pour pouvoir être partagé ou ciblé depuis une autre page.
+  // Le filtre vit dans l'URL (?categorie=militaire) pour pouvoir être partagé ou ciblé depuis une autre page.
   const [searchParams, setSearchParams] = useSearchParams()
   const requested = searchParams.get('categorie')
-  const filter = filters.find((f) => f === requested) ?? 'Tout'
+  const filter = filters.find((f) => f.id === requested)?.id ?? 'tout'
   const [showAll, setShowAll] = useState(false)
+  const [visible, setVisible] = useState(pageSize)
 
-  const isCurated = filter === 'Tout' && !showAll
+  const isCurated = filter === 'tout' && !showAll
+  const pool = filter === 'tout' ? explorations : explorations.filter((e) => e.category === filter)
   const items = isCurated
     ? curated.map((slot) => ({ exploration: getExploration(slot.slug), layout: slot.layout }))
-    : explorations
-        .filter((e) => filter === 'Tout' || e.category === filter)
-        .map((exploration) => ({ exploration, layout: uniformLayout }))
+    : pool.slice(0, visible).map((exploration) => ({ exploration, layout: uniformLayout }))
+  const remaining = isCurated ? 0 : pool.length - items.length
 
   const selectFilter = (next: Filter) => {
-    setSearchParams(next === 'Tout' ? {} : { categorie: next }, { replace: true })
+    setSearchParams(next === 'tout' ? {} : { categorie: next }, { replace: true })
     setShowAll(false)
+    setVisible(pageSize)
   }
 
   return (
@@ -37,20 +45,21 @@ export function Explorations() {
           <h2 className="font-display text-section uppercase">Explorations</h2>
           <div role="group" aria-label="Filtrer par catégorie" className="flex flex-wrap gap-2">
             {filters.map((f) => {
-              const active = f === filter
+              const active = f.id === filter
               return (
                 <button
-                  key={f}
+                  key={f.id}
                   type="button"
                   aria-pressed={active}
-                  onClick={() => selectFilter(f)}
-                  className={`min-h-11 cursor-pointer rounded-full border px-5 text-sm transition-colors ${
+                  onClick={() => selectFilter(f.id)}
+                  className={`inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-full border px-5 text-sm transition-colors ${
                     active
                       ? 'border-torch bg-torch font-semibold text-night'
                       : 'border-chip font-medium text-bone hover:border-torch hover:text-torch'
                   }`}
                 >
-                  {f}
+                  {f.label}
+                  <span className={active ? 'text-night/70' : 'text-ash'}>{f.count}</span>
                 </button>
               )
             })}
@@ -67,18 +76,31 @@ export function Explorations() {
           ))}
         </div>
 
-        {filter === 'Tout' && (
-          <div className="flex justify-center">
+        <div className="flex flex-wrap justify-center gap-3">
+          {remaining > 0 && (
             <button
               type="button"
-              onClick={() => setShowAll((v) => !v)}
+              onClick={() => setVisible((v) => v + pageSize)}
+              className={buttonClass('solid', 'cursor-pointer')}
+            >
+              Voir plus ({remaining})
+              <ArrowRightIcon className="size-4 rotate-90" />
+            </button>
+          )}
+          {filter === 'tout' && (
+            <button
+              type="button"
+              onClick={() => {
+                setShowAll((v) => !v)
+                setVisible(pageSize)
+              }}
               className={buttonClass('outline', 'cursor-pointer')}
             >
               {showAll ? 'Revenir à la sélection' : `Toutes les explorations (${explorations.length})`}
-              <ArrowRightIcon className={`size-4 transition-transform ${showAll ? '-rotate-90' : 'rotate-90'}`} />
+              <ArrowRightIcon className={`size-4 ${showAll ? '-rotate-90' : 'rotate-90'}`} />
             </button>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </section>
   )

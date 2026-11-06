@@ -11,14 +11,35 @@ import pavillonChasse from '../assets/photos/pavillon-chasse.jpg'
 import porteBlindee from '../assets/photos/porte-blindee.jpg'
 import salonTapisseries from '../assets/photos/salon-tapisseries.jpg'
 
-export const categories = ['Châteaux', 'Militaire', 'Souterrain', 'Industriel', 'Patrimoine'] as const
+export const categories = [
+  {
+    id: 'demeures',
+    label: 'Demeure / architecture historique',
+    description: 'Châteaux, demeures figées, cloîtres et salons restés intacts.',
+  },
+  {
+    id: 'militaire',
+    label: 'Militaire / industrielle',
+    description: "Bunkers, hangars, cimetières d'avions et béton brut.",
+  },
+  {
+    id: 'souterrain',
+    label: 'Souterrain',
+    description: 'Carrières, galeries et réseaux taillés dans la roche.',
+  },
+  {
+    id: 'insolites',
+    label: 'Lieux insolites',
+    description: 'Les endroits qui ne rentrent dans aucune case.',
+  },
+] as const
 
-export type Category = (typeof categories)[number]
+export type CategoryId = (typeof categories)[number]['id']
 
 export type Exploration = {
   slug: string
   title: string
-  category: Category
+  category: CategoryId
   /** Libellé affiché sur la carte, plus précis que la catégorie du filtre. */
   tag: string
   /** Date de publication sur Instagram, au format AAAA-MM-JJ. */
@@ -37,7 +58,7 @@ export const explorations: Exploration[] = [
   {
     slug: 'chambre-plafond-peint',
     title: 'La chambre au plafond peint',
-    category: 'Châteaux',
+    category: 'demeures',
     tag: 'Château',
     date: '2026-10-25',
     image: chambrePlafondPeint,
@@ -47,7 +68,7 @@ export const explorations: Exploration[] = [
   {
     slug: 'octogone',
     title: 'Octogone',
-    category: 'Industriel',
+    category: 'militaire',
     tag: 'Industriel',
     date: '2026-10-18',
     image: octogone,
@@ -58,7 +79,7 @@ export const explorations: Exploration[] = [
   {
     slug: 'salon-tapisseries',
     title: 'Le salon des tapisseries',
-    category: 'Châteaux',
+    category: 'demeures',
     tag: 'Château',
     date: '2026-10-06',
     image: salonTapisseries,
@@ -69,7 +90,7 @@ export const explorations: Exploration[] = [
   {
     slug: 'carriere-bleue',
     title: 'Carrière bleue',
-    category: 'Souterrain',
+    category: 'souterrain',
     tag: 'Souterrain',
     date: '2026-09-27',
     image: carriereBleue,
@@ -79,7 +100,7 @@ export const explorations: Exploration[] = [
   {
     slug: 'escalier-trophees',
     title: "L'escalier des trophées",
-    category: 'Châteaux',
+    category: 'demeures',
     tag: 'Château',
     date: '2026-09-10',
     image: escalierTrophees,
@@ -89,7 +110,7 @@ export const explorations: Exploration[] = [
   {
     slug: 'cimetiere-avions',
     title: "Cimetière d'avions",
-    category: 'Militaire',
+    category: 'militaire',
     tag: 'Militaire',
     date: '2026-08-30',
     image: cimetiereAvions,
@@ -100,7 +121,7 @@ export const explorations: Exploration[] = [
   {
     slug: 'porte-blindee',
     title: 'La porte blindée',
-    category: 'Militaire',
+    category: 'militaire',
     tag: 'Bunker',
     date: '2026-08-16',
     image: porteBlindee,
@@ -110,7 +131,7 @@ export const explorations: Exploration[] = [
   {
     slug: 'pavillon-chasse',
     title: 'Le pavillon de chasse',
-    category: 'Châteaux',
+    category: 'demeures',
     tag: 'Demeure',
     date: '2026-07-26',
     image: pavillonChasse,
@@ -120,7 +141,7 @@ export const explorations: Exploration[] = [
   {
     slug: 'chambre-baldaquin',
     title: 'Chambre à baldaquin',
-    category: 'Châteaux',
+    category: 'demeures',
     tag: 'Château',
     date: '2026-07-20',
     image: chambreBaldaquin,
@@ -130,7 +151,7 @@ export const explorations: Exploration[] = [
   {
     slug: 'cloitre-piano',
     title: 'Le cloître au piano',
-    category: 'Patrimoine',
+    category: 'demeures',
     tag: 'Patrimoine',
     date: '2026-07-05',
     image: cloitrePiano,
@@ -140,7 +161,7 @@ export const explorations: Exploration[] = [
   {
     slug: 'effondrement',
     title: 'Effondrement',
-    category: 'Châteaux',
+    category: 'demeures',
     tag: 'Château',
     date: '2026-06-21',
     image: effondrement,
@@ -150,7 +171,7 @@ export const explorations: Exploration[] = [
   {
     slug: 'hangar-blindes',
     title: 'Hangar aux blindés',
-    category: 'Militaire',
+    category: 'militaire',
     tag: 'Militaire',
     date: '2026-05-12',
     image: hangarBlindes,

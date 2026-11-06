@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 import portrait from '../assets/photos/portrait-souterrain.jpg'
 import { ArrowRightIcon, InstagramIcon, PlusIcon } from '../components/icons'
 import { ButtonLink, Eyebrow, MetaLabel, buttonClass, external } from '../components/ui'
-import { categories, explorations, type Category } from '../data/explorations'
+import { categories, explorations } from '../data/explorations'
 import { site } from '../data/site'
 import { usePageTitle } from '../lib/usePageTitle'
 
@@ -24,18 +24,19 @@ const rules = [
   },
 ]
 
-const themeDescriptions: Record<Category, string> = {
-  Châteaux: 'Demeures figées, salons intacts, plafonds peints.',
-  Militaire: "Bunkers, hangars et cimetières d'avions.",
-  Souterrain: 'Carrières et galeries taillées dans la roche.',
-  Industriel: 'Béton brut et architecture fonctionnelle.',
-  Patrimoine: "Cloîtres et édifices chargés d'histoire.",
-}
+const themes = categories
+  .map((category) => {
+    const items = explorations.filter((e) => e.category === category.id)
+    return { ...category, count: items.length, cover: items[0] }
+  })
+  .filter((theme) => theme.count > 0)
 
-const themes = categories.map((category) => {
-  const items = explorations.filter((e) => e.category === category)
-  return { category, count: items.length, cover: items[0] }
-})
+const stats = [
+  { label: "D'exploration", value: site.yearsExploring },
+  { label: 'Lieux explorés', value: site.placesExplored },
+  { label: 'Pays', value: String(site.countries.length) },
+  { label: 'Abonnés', value: site.followers },
+]
 
 const faq = [
   {
@@ -45,7 +46,7 @@ const faq = [
   },
   {
     question: 'Comment proposer une collaboration ?',
-    answer: `Par e-mail ou en message privé sur Instagram (${site.handle}). Marque, média, tirage photo ou presse : décris ton projet en quelques lignes.`,
+    answer: `Par e-mail (${site.email}) ou en message privé sur Instagram et TikTok (${site.handle}). Collaboration ou tirage photo : décris ton projet en quelques lignes.`,
   },
   {
     question: 'Puis-je utiliser tes photos ?',
@@ -96,45 +97,51 @@ export function AboutPage() {
             <section aria-labelledby="about-title" className="flex flex-col gap-8">
               <Eyebrow>À propos · {site.city}</Eyebrow>
               <h1 id="about-title" className="font-display text-story uppercase">
-                Derrière
-                <br />
-                la lampe torche
+                Présentation
               </h1>
               <p className="text-manifesto font-medium tracking-[-0.01em]">
-                On m'appelle Raptor. Explorateur français basé à {site.city}, je pars à la recherche
-                des lieux que le temps a oubliés.
+                Je m'appelle Raptor, j'ai une vingtaine d'années et je suis basé à {site.city}. Je pars
+                à la recherche des lieux que le temps a oubliés.
               </p>
               <div className="flex flex-col gap-5 text-lg leading-relaxed text-sand">
                 <p>
-                  Châteaux figés dans leur dernier jour, bunkers, hangars militaires, carrières
-                  creusées dans la roche&nbsp;: chaque exploration se termine à la lueur d'une lampe
-                  frontale, au milieu de pièces que plus personne ne regarde.
+                  Depuis mon plus jeune âge, j’ai toujours été fasciné par les univers apocalyptiques,
+                  que ce soit à travers les jeux vidéo, les films, les séries ou encore les vidéos
+                  YouTube.
                 </p>
                 <p>
-                  Mes photos et mes vidéos sont partagées sur Instagram avec une communauté de{' '}
-                  {site.followers} abonnés, entre la France, l'Italie, la Belgique et l'Espagne. Ma
-                  devise tient en trois mots&nbsp;: <em className="text-bone">never stop exploring</em>.
+                  C’est ensuite l’exploration qui est devenue une véritable passion lorsque j’ai
+                  découvert, par moi-même, ce sentiment unique de liberté et d’adrénaline que procure
+                  la découverte de lieux abandonnés, parfois situés à quelques kilomètres seulement de
+                  chez moi.
+                </p>
+                <p>
+                  Au fil des années, chaque structure découverte est devenue une nouvelle source
+                  d’inspiration. J’ai ainsi commencé à prendre le temps de capturer ces instants à
+                  travers la photographie et la vidéo, afin de conserver une trace de ces lieux et de
+                  leur atmosphère si particulière.
+                </p>
+                <p>
+                  Cela fait maintenant plus de 7 ans que je pratique cette passion, avec à mon actif
+                  plus de 500 lieux explorés dans 4 pays différents. Des endroits tous plus
+                  surprenants, insolites et fascinants les uns que les autres, qui ont chacun contribué
+                  à enrichir mon parcours et ma vision de l'exploration.
+                </p>
+                <p>
+                  Ce site est avant tout une trace photographique de mes aventures, mais aussi un moyen
+                  de partager mon univers, mon parcours et cette passion qui m'anime depuis toutes ces
+                  années.
                 </p>
               </div>
-              <dl className="grid grid-cols-3 gap-4 border-y border-edge py-6">
-                <div>
-                  <dt>
-                    <MetaLabel>Abonnés</MetaLabel>
-                  </dt>
-                  <dd className="mt-2 font-display text-4xl leading-none">{site.followers}</dd>
-                </div>
-                <div>
-                  <dt>
-                    <MetaLabel>Pays</MetaLabel>
-                  </dt>
-                  <dd className="mt-2 font-display text-4xl leading-none">{site.countries.length}</dd>
-                </div>
-                <div>
-                  <dt>
-                    <MetaLabel>Base</MetaLabel>
-                  </dt>
-                  <dd className="mt-2 font-display text-4xl leading-none">{site.city}</dd>
-                </div>
+              <dl className="grid grid-cols-2 gap-x-4 gap-y-6 border-y border-edge py-6 sm:grid-cols-4">
+                {stats.map((stat) => (
+                  <div key={stat.label}>
+                    <dt>
+                      <MetaLabel>{stat.label}</MetaLabel>
+                    </dt>
+                    <dd className="mt-2 font-display text-4xl leading-none">{stat.value}</dd>
+                  </div>
+                ))}
               </dl>
             </section>
 
@@ -162,10 +169,10 @@ export function AboutPage() {
                 Ce que j'explore
               </SectionTitle>
               <ul className="grid gap-4 sm:grid-cols-2">
-                {themes.map(({ category, count, cover }) => (
-                  <li key={category}>
+                {themes.map(({ id, label, description, count, cover }) => (
+                  <li key={id}>
                     <Link
-                      to={`/?categorie=${encodeURIComponent(category)}#explorations`}
+                      to={`/?categorie=${id}#explorations`}
                       className="group flex h-full items-center gap-4 border border-edge p-3 transition-colors hover:border-torch"
                     >
                       <span className="size-20 shrink-0 overflow-hidden bg-surface">
@@ -178,8 +185,8 @@ export function AboutPage() {
                         />
                       </span>
                       <span className="flex min-w-0 flex-col gap-1">
-                        <span className="font-semibold transition-colors group-hover:text-torch">{category}</span>
-                        <span className="text-sm leading-snug text-sand">{themeDescriptions[category]}</span>
+                        <span className="font-semibold transition-colors group-hover:text-torch">{label}</span>
+                        <span className="text-sm leading-snug text-sand">{description}</span>
                         <span className="text-xs tracking-[0.12em] text-ash uppercase">
                           {count} exploration{count > 1 ? 's' : ''}
                         </span>
@@ -215,7 +222,7 @@ export function AboutPage() {
       <section className="border-t border-line px-gutter py-28">
         <div className="mx-auto flex max-w-content flex-wrap items-end justify-between gap-10">
           <div className="flex flex-col gap-6">
-            <Eyebrow>Collaborations · Tirages · Presse</Eyebrow>
+            <Eyebrow>Collaborations · Tirages</Eyebrow>
             <h2 className="font-display text-section uppercase">
               Un projet&nbsp;?
               <br />
