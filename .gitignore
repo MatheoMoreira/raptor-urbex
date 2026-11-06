@@ -1,0 +1,10 @@
+node_modules
+dist
+.DS_Store
+*.log
+
+# Photos d'origine téléchargées (les versions utilisées sont dans src/assets/photos)
+/photos/
+
+# Configuration locale de l'aperçu Claude
+/.claude/
