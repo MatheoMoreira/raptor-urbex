@@ -27,6 +27,24 @@ toutes les routes (règle de réécriture « SPA »), sinon `/a-propos` répondr
 Chaque push sur `main` publie le site sur GitHub Pages via `.github/workflows/deploy.yml` :
 https://matheomoreira.github.io/raptor-urbex/ (version de relecture, `noindex` dans `index.html`).
 
+### Cloudflare Pages (domaine définitif)
+
+Réglages du projet Pages, connecté au dépôt GitHub (branche `main`) :
+
+- Build command : `npm run build`
+- Build output directory : `dist`
+- Node : version 24, lue dans `.node-version` (ou variable d'environnement `NODE_VERSION=24`)
+
+Aucune règle de réécriture n'est nécessaire : sans `404.html` dans `dist/`, Cloudflare Pages
+renvoie `index.html` pour toutes les routes (`/a-propos`…). Le domaine reste enregistré chez LWS,
+ses serveurs DNS pointent vers Cloudflare.
+
+Le jour de la mise en ligne sur le domaine :
+
+1. retirer `<meta name="robots" content="noindex, nofollow" />` de `index.html` ;
+2. supprimer `.github/workflows/deploy.yml` et dépublier GitHub Pages (Settings → Pages), pour
+   que le site n'existe qu'à une seule adresse.
+
 ## Où modifier quoi
 
 - `src/data/site.ts` : pseudo, ville, abonnés, chiffres clés, pays, e-mail et liens Instagram / TikTok.
