@@ -32,7 +32,8 @@ https://matheomoreira.github.io/raptor-urbex/ (version de relecture, `noindex` d
 - `src/data/site.ts` : pseudo, ville, abonnés, chiffres clés, pays, e-mail et liens Instagram / TikTok.
 - `src/data/explorations.ts` : les catégories, les explorations, la sélection éditoriale de la
   grille (`curated`) et l'exploration nommée dans le hero.
-- `src/data/story.ts` : le récit mis en avant (texte du post Instagram, photo, lieu).
+- `src/data/story.ts` : les récits du carrousel (Lemoniz, World of Tanks, F-4 Phantom), tirés des
+  longues légendes Instagram. Pour en ajouter un, ajouter un objet au tableau `stories`.
 - `src/assets/photos/<slug>/` : toutes les photos d'une exploration, `01.jpg`, `02.jpg`… dans
   l'ordre du carrousel Instagram.
 - `src/assets/hero-f4-phantom.webp` : la photo de fond de l'accueil.
