@@ -63,7 +63,8 @@ export function Gallery({ exploration, start = 0, onClose }: Props) {
         touchX.current = null
         if (Math.abs(dx) > 50) go(dx < 0 ? 1 : -1)
       }}
-      className="m-0 h-svh max-h-none w-screen max-w-none flex-col bg-night/95 p-0 text-bone backdrop:bg-black/80 open:flex"
+      // select-none : des clics rapides sur les flèches ou un glissement du doigt ne doivent pas surligner le titre ou le compteur.
+      className="m-0 h-svh max-h-none w-screen max-w-none flex-col bg-night/95 p-0 text-bone select-none backdrop:bg-black/80 open:flex"
     >
       <header className="flex items-start justify-between gap-6 px-gutter pt-6">
         <div className="flex min-w-0 flex-col gap-1">
@@ -88,6 +89,7 @@ export function Gallery({ exploration, start = 0, onClose }: Props) {
           key={photos[index]}
           src={photos[index]}
           alt={count > 1 ? `${exploration.alt}, photo ${index + 1} sur ${count}` : exploration.alt}
+          draggable={false}
           className="max-h-full max-w-full object-contain"
         />
         {count > 1 && (
