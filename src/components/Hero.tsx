@@ -9,11 +9,12 @@ export function Hero() {
 
   return (
     <section id="top" className="relative flex min-h-[880px] flex-col justify-end overflow-hidden bg-black">
+      {/* Dès md, la photo est élargie et décalée vers la gauche : l'explorateur reste à l'écart du titre, à droite. */}
       <img
         src={heroImage}
         alt="Silhouette d'un explorateur sur la carcasse d'un F-4 Phantom, dans le désert au coucher du soleil"
         fetchPriority="high"
-        className="absolute inset-0 size-full object-cover object-[33%_50%] opacity-80"
+        className="absolute inset-0 size-full object-cover object-[33%_50%] opacity-80 md:left-[-49%] md:w-[150%] md:max-w-none xl:left-[-38%] xl:w-[140%]"
       />
       <div aria-hidden="true" className="hero-scrim absolute inset-0" />
       <p className="absolute top-32 right-[clamp(1.25rem,4.5vw,4rem)] hidden text-xs font-semibold tracking-[0.22em] text-sand uppercase md:block">
