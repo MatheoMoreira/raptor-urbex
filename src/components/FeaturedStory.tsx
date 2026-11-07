@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { formatDate } from '../data/explorations'
 import { story, type StoryBlock } from '../data/story'
-import { ArrowRightIcon, InstagramIcon } from './icons'
+import { Gallery } from './Gallery'
+import { ArrowRightIcon, InstagramIcon, PhotosIcon } from './icons'
 import { ButtonLink, Eyebrow, buttonClass, external } from './ui'
 
 function Paragraph({ block }: { block: StoryBlock }) {
@@ -15,7 +16,9 @@ function Paragraph({ block }: { block: StoryBlock }) {
 
 export function FeaturedStory() {
   const [expanded, setExpanded] = useState(false)
+  const [galleryOpen, setGalleryOpen] = useState(false)
   const visible = expanded ? story.blocks : story.blocks.slice(0, story.preview)
+  const { photos } = story.exploration
 
   const facts = [
     { label: 'Catégorie', value: story.tag },
@@ -27,7 +30,7 @@ export function FeaturedStory() {
     <section id="recit" className="bg-surface">
       <div className="mx-auto max-w-[1440px] lg:grid lg:grid-cols-2">
         <div className="h-[560px] overflow-hidden lg:sticky lg:top-0 lg:h-svh lg:self-start">
-          <img src={story.image} alt={story.alt} loading="lazy" className="size-full object-cover" />
+          <img src={photos[story.photo]} alt={story.alt} loading="lazy" className="size-full object-cover" />
         </div>
 
         <div className="flex flex-col gap-8 px-[clamp(1.25rem,5vw,5.5rem)] py-24">
@@ -64,6 +67,14 @@ export function FeaturedStory() {
               {expanded ? 'Réduire le récit' : 'Lire tout le récit'}
               <ArrowRightIcon className={`size-4 ${expanded ? '-rotate-90' : 'rotate-90'}`} />
             </button>
+            <button
+              type="button"
+              onClick={() => setGalleryOpen(true)}
+              className={buttonClass('outline', 'cursor-pointer')}
+            >
+              <PhotosIcon className="size-4.5" />
+              Voir les {photos.length} photos
+            </button>
             <ButtonLink href={story.instagram} variant="outline" {...external}>
               <InstagramIcon className="size-4.5" />
               Voir le post
@@ -71,6 +82,10 @@ export function FeaturedStory() {
           </div>
         </div>
       </div>
+
+      {galleryOpen && (
+        <Gallery exploration={story.exploration} start={story.photo} onClose={() => setGalleryOpen(false)} />
+      )}
     </section>
   )
 }

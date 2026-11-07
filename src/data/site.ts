@@ -4,7 +4,7 @@ export const site = {
   instagram: 'https://www.instagram.com/raptor_urbex/',
   tiktok: 'https://www.tiktok.com/@raptor_urbex',
   email: 'raptor.urbex@gmail.com',
-  city: 'Lyon',
+  city: 'Saint-Étienne',
   followers: '40,7 k',
   yearsExploring: '7 ans',
   placesExplored: '500+',

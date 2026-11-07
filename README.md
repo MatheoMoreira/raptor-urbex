@@ -31,13 +31,17 @@ https://matheomoreira.github.io/raptor-urbex/ (version de relecture, `noindex` d
 
 - `src/data/site.ts` : pseudo, ville, abonnés, chiffres clés, pays, e-mail et liens Instagram / TikTok.
 - `src/data/explorations.ts` : les catégories, les explorations, la sélection éditoriale de la
-  grille (`curated`) et la photo du hero.
+  grille (`curated`) et l'exploration nommée dans le hero.
 - `src/data/story.ts` : le récit mis en avant (texte du post Instagram, photo, lieu).
-- `src/assets/photos/` : les photos, nommées comme le `slug` de leur exploration.
+- `src/assets/photos/<slug>/` : toutes les photos d'une exploration, `01.jpg`, `02.jpg`… dans
+  l'ordre du carrousel Instagram.
+- `src/assets/hero-f4-phantom.webp` : la photo de fond de l'accueil.
 - `src/index.css` : couleurs, polices et tailles de titres (`@theme`), dégradé du hero.
-- `src/components/` : une section de la page par fichier.
+- `src/components/` : une section de la page par fichier ; `Gallery.tsx` est la visionneuse qui
+  s'ouvre au clic sur une exploration.
 
-Pour ajouter une exploration : déposer la photo dans `src/assets/photos/<slug>.jpg`, puis ajouter
-une ligne au tableau `entries` de `explorations.ts` avec le `code` du post Instagram
-(`instagram.com/p/<code>/`). La date de publication et le lien sont calculés à partir de ce code,
-et la liste est triée automatiquement de la plus récente à la plus ancienne.
+Pour ajouter une exploration : déposer ses photos dans `src/assets/photos/<slug>/` (`01.jpg`,
+`02.jpg`…), puis ajouter une ligne au tableau `entries` de `explorations.ts` avec le `code` du post
+Instagram (`instagram.com/p/<code>/`). `cover: 3` choisit la photo affichée sur la carte (la
+première par défaut). La date de publication et le lien sont calculés à partir du code, et la liste
+est triée automatiquement de la plus récente à la plus ancienne.

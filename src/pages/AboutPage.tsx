@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { Link } from 'react-router'
-import portrait from '../assets/photos/portrait-souterrain.jpg'
+import portrait from '../assets/photos/gouffre/01.jpg'
 import { ArrowRightIcon, InstagramIcon, PlusIcon } from '../components/icons'
 import { ButtonLink, Eyebrow, MetaLabel, buttonClass, external } from '../components/ui'
 import { categories, explorations } from '../data/explorations'

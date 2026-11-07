@@ -61,9 +61,9 @@
   .hero-scrim {
     background: linear-gradient(
       180deg,
-      rgb(11 11 12 / 0.7) 0%,
-      rgb(11 11 12 / 0.8) 45%,
-      rgb(11 11 12 / 0.95) 100%
+      rgb(11 11 12 / 0.5) 0%,
+      rgb(11 11 12 / 0.62) 45%,
+      rgb(11 11 12 / 0.92) 100%
     );
 
     @variant md {

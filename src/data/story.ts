@@ -1,5 +1,4 @@
-import image from '../assets/photos/lemoniz-recit.jpg'
-import { publishedOn } from './explorations'
+import { getExploration } from './explorations'
 
 export type StoryBlock = {
   /** Heure affichée en marge du paragraphe (repère chronologique du récit). */
@@ -7,16 +6,19 @@ export type StoryBlock = {
   text: string
 }
 
-const code = 'DcG7qHtiuUM'
+const lemoniz = getExploration('porte-blindee')
 
 /** Récit mis en avant sur l'accueil : texte du post Instagram, photo 5/8 du carrousel. */
 export const story = {
   title: 'La centrale nucléaire de Lemoniz',
   tag: 'Centrale nucléaire',
   place: 'Lemoniz, Espagne',
-  date: publishedOn(code),
-  instagram: `https://www.instagram.com/p/${code}/?img_index=5`,
-  image,
+  date: lemoniz.date,
+  instagram: `${lemoniz.instagram}?img_index=5`,
+  /** L'exploration dont la galerie s'ouvre depuis le récit. */
+  exploration: lemoniz,
+  /** Index (0) de la photo du récit dans le carrousel. */
+  photo: 4,
   alt: "Explorateur dans l'ouverture octogonale d'un bloc de béton de la centrale nucléaire de Lemoniz",
   /** Nombre de paragraphes visibles avant « Lire tout le récit ». */
   preview: 3,
@@ -25,13 +27,13 @@ export const story = {
       time: '22h',
       text: 'Sous une pluie intense et un orage qui éclate, nous quittons la voiture pour rejoindre la route surplombant la centrale de Lemoniz.',
     },
-    { text: 'À chaque passage de voiture, le même réflexe : se jeter rapidement dans la végétation pour disparaître.' },
+    { text: 'À chaque passage de voiture, le même réflexe : se jeter rapidement dans la végétation pour disparaître.' },
     {
-      text: 'À l’angle du site, deux lumières apparaissent : (la voiture du garde). Nous poursuivons accroupis jusqu’au fond de la crique, où notre tunnel à marée basse nous attend. Le véhicule ne cesse ses passages proche de nous, après une longue heure d’attente dans les douves, nous tentons notre chance.',
+      text: 'À l’angle du site, deux lumières apparaissent : (la voiture du garde). Nous poursuivons accroupis jusqu’au fond de la crique, où notre tunnel à marée basse nous attend. Le véhicule ne cesse ses passages proche de nous, après une longue heure d’attente dans les douves, nous tentons notre chance.',
     },
     { text: 'Quelques années d’expérience en grimpe, une courte échelle, une corde… et nous voilà à l’intérieur d’un des blocs de béton.' },
     {
-      text: 'Commence alors une progression de plusieurs heures dans ce véritable labyrinthe : salle de surveillance, ateliers, espaces d’usinage, administration… Des heures à avancer, à chercher, à douter… jusqu’à enfin atteindre, à 4h du matin, la fameuse salle des réacteurs.',
+      text: 'Commence alors une progression de plusieurs heures dans ce véritable labyrinthe : salle de surveillance, ateliers, espaces d’usinage, administration… Des heures à avancer, à chercher, à douter… jusqu’à enfin atteindre, à 4h du matin, la fameuse salle des réacteurs.',
     },
     { text: 'Nous installons nos hamacs dans le SAS de sécurité et attendons le lever du jour.' },
     {

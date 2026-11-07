@@ -1,3 +1,4 @@
+import heroImage from '../assets/hero-f4-phantom.webp'
 import { getExploration, heroSlug } from '../data/explorations'
 import { site } from '../data/site'
 import { ArrowRightIcon } from './icons'
@@ -9,11 +10,10 @@ export function Hero() {
   return (
     <section id="top" className="relative flex min-h-[880px] flex-col justify-end overflow-hidden bg-black">
       <img
-        src={cover.image}
-        alt={cover.alt}
+        src={heroImage}
+        alt="Silhouette d'un explorateur sur la carcasse d'un F-4 Phantom, dans le désert au coucher du soleil"
         fetchPriority="high"
-        className="absolute inset-0 size-full object-cover opacity-80"
-        style={{ objectPosition: cover.focus }}
+        className="absolute inset-0 size-full object-cover object-[33%_50%] opacity-80"
       />
       <div aria-hidden="true" className="hero-scrim absolute inset-0" />
       <p className="absolute top-32 right-[clamp(1.25rem,4.5vw,4rem)] hidden text-xs font-semibold tracking-[0.22em] text-sand uppercase md:block">
@@ -22,7 +22,9 @@ export function Hero() {
 
       <div className="relative flex flex-col gap-10 px-gutter pt-48 pb-16 md:flex-row-reverse md:flex-wrap md:items-end md:justify-between">
         <div className="flex min-w-0 flex-col gap-6 md:flex-[0_1_700px]">
-          <Eyebrow>Explorateur français · {site.city}</Eyebrow>
+          <Eyebrow>
+            Explorateur français · <span className="whitespace-nowrap">{site.city}</span>
+          </Eyebrow>
           <h1 className="font-display text-hero tracking-[0.005em] uppercase">
             Never stop
             <br />

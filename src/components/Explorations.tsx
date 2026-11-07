@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { useSearchParams } from 'react-router'
-import { categories, curated, explorations, getExploration, type CategoryId } from '../data/explorations'
+import { categories, curated, explorations, getExploration, type CategoryId, type Exploration } from '../data/explorations'
 import { ExplorationCard } from './ExplorationCard'
+import { Gallery } from './Gallery'
 import { ArrowRightIcon } from './icons'
 import { buttonClass } from './ui'
 
@@ -24,6 +25,7 @@ export function Explorations() {
   const filter = filters.find((f) => f.id === requested)?.id ?? 'tout'
   const [showAll, setShowAll] = useState(false)
   const [visible, setVisible] = useState(pageSize)
+  const [opened, setOpened] = useState<Exploration | null>(null)
 
   const isCurated = filter === 'tout' && !showAll
   const pool = filter === 'tout' ? explorations : explorations.filter((e) => e.category === filter)
@@ -72,7 +74,13 @@ export function Explorations() {
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-12">
           {items.map(({ exploration, layout }, i) => (
-            <ExplorationCard key={exploration.slug} exploration={exploration} index={i + 1} className={layout} />
+            <ExplorationCard
+              key={exploration.slug}
+              exploration={exploration}
+              index={i + 1}
+              onOpen={() => setOpened(exploration)}
+              className={layout}
+            />
           ))}
         </div>
 
@@ -102,6 +110,14 @@ export function Explorations() {
           )}
         </div>
       </div>
+
+      {opened && (
+        <Gallery
+          exploration={opened}
+          start={(opened.cover ?? 1) - 1}
+          onClose={() => setOpened(null)}
+        />
+      )}
     </section>
   )
 }
