@@ -17,7 +17,7 @@ export function ExplorationCard({ exploration, index, onOpen, className = '' }: 
     <button
       type="button"
       onClick={onOpen}
-      aria-label={`${exploration.title} — voir ${count > 1 ? `les ${count} photos` : 'la photo'}`}
+      aria-label={`${exploration.title}, voir ${count > 1 ? `les ${count} photos` : 'la photo'}`}
       className={`group flex min-w-0 cursor-pointer flex-col gap-4 text-left [--media-h:420px] md:[--media-h:480px] ${className}`}
     >
       <span className="relative block h-(--media-h) overflow-hidden bg-surface">

@@ -67,7 +67,7 @@ function SectionTitle({ id, eyebrow, children }: { id: string; eyebrow: string; 
 }
 
 export function AboutPage() {
-  usePageTitle('À propos — Raptor Urbex')
+  usePageTitle('À propos · Raptor Urbex')
 
   return (
     <>

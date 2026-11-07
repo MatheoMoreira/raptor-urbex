@@ -8,7 +8,7 @@ import { Territories } from '../components/Territories'
 import { usePageTitle } from '../lib/usePageTitle'
 
 export function HomePage() {
-  usePageTitle('Raptor Urbex — Never stop exploring')
+  usePageTitle('Raptor Urbex · Never stop exploring')
 
   return (
     <>

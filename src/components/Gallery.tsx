@@ -44,7 +44,7 @@ export function Gallery({ exploration, start = 0, onClose }: Props) {
   return (
     <dialog
       ref={dialog}
-      aria-label={`${title} — photos`}
+      aria-label={`Photos : ${title}`}
       onCancel={(event) => {
         event.preventDefault()
         onClose()
@@ -87,7 +87,7 @@ export function Gallery({ exploration, start = 0, onClose }: Props) {
         <img
           key={photos[index]}
           src={photos[index]}
-          alt={count > 1 ? `${exploration.alt} — photo ${index + 1} sur ${count}` : exploration.alt}
+          alt={count > 1 ? `${exploration.alt}, photo ${index + 1} sur ${count}` : exploration.alt}
           className="max-h-full max-w-full object-contain"
         />
         {count > 1 && (

@@ -27,7 +27,7 @@ export function Contact() {
           </div>
         </div>
         <p className="text-ash">
-          {site.handle} sur Instagram et TikTok — réponse en message privé ou par e-mail.
+          {site.handle} sur Instagram et TikTok. Réponse en message privé ou par e-mail.
         </p>
       </div>
     </section>

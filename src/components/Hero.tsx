@@ -18,7 +18,7 @@ export function Hero() {
       />
       <div aria-hidden="true" className="hero-scrim absolute inset-0" />
       <p className="absolute top-32 right-[clamp(1.25rem,4.5vw,4rem)] hidden text-xs font-semibold tracking-[0.22em] text-sand uppercase md:block">
-        En couverture — {cover.title}
+        En couverture : {cover.title}
       </p>
 
       <div className="relative flex flex-col gap-10 px-gutter pt-48 pb-16 md:flex-row-reverse md:flex-wrap md:items-end md:justify-between">

@@ -1,4 +1,4 @@
-# Raptor Urbex — portfolio
+# Raptor Urbex : portfolio
 
 Site vitrine de [@raptor_urbex](https://www.instagram.com/raptor_urbex/), direction « Nocturne ».
 React 19, TypeScript, Vite et Tailwind CSS v4.
@@ -16,7 +16,7 @@ npm run preview  # sert le build de production
 
 - `/` : accueil (`src/pages/HomePage.tsx`). Le filtre des explorations se lit dans l'URL :
   `/?categorie=militaire#explorations` (`demeures`, `militaire`, `souterrain`, `insolites`).
-- `/a-propos` : présentation de l'explorateur (`src/pages/AboutPage.tsx`) — photo fixe à gauche,
+- `/a-propos` : présentation de l'explorateur (`src/pages/AboutPage.tsx`) : photo fixe à gauche,
   le code, les thèmes explorés, la FAQ et un appel au contact.
 
 Le routage passe par React Router. En production, l'hébergeur doit renvoyer `index.html` pour
