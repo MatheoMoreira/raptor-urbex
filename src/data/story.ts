@@ -144,4 +144,27 @@ export const stories: Story[] = [
     quote: '20 km de marche, des moustiques, de la boue et des projectiles… et des souvenirs plein la tête.',
     partner: { handle: 'thenewculture.17', url: 'https://www.instagram.com/thenewculture.17/' },
   },
+  {
+    exploration: getExploration('carriere-bleue'),
+    label: 'Mines d’ocre',
+    title: 'Les mines d’ocre',
+    tag: 'Mine',
+    fact: { label: 'Région', value: 'Vaucluse' },
+    photo: 1,
+    alt: 'Explorateur au fond d’une galerie de mine d’ocre éclairée en rouge',
+    blocks: [
+      { time: '4h', text: 'Mines d’ocre, une exploration vers 4h du matin.' },
+      { text: 'Ces deux clichés sont le résultat d’un jeu de lumière dans ces couloirs immenses.' },
+      {
+        text: 'Ces sites d’extraction de sable ocreux servant à produire des pigments naturels aux couleurs chaudes : le résultat d’une incroyable collaboration entre la nature et le travail des hommes.',
+      },
+      {
+        text: 'Il y a des millions d’années, une mer chaude recouvrait le Vaucluse, y déposant des sédiments riches en fer. À la fin du XVIIIe siècle, l’Homme a commencé à creuser ce sable pour en extraire l’ocre, ce pigment naturel unique au monde qui a coloré les façades du monde entier.',
+      },
+      {
+        text: 'Aujourd’hui, les anciennes galeries et carrières à ciel ouvert offrent un spectacle digne de l’Ouest américain.',
+      },
+    ],
+    partner: { handle: 'le_grigs', url: 'https://www.instagram.com/le_grigs/' },
+  },
 ]
